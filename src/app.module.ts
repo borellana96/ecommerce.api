@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './modules/user/user/user.controller';
-import { UserService } from './modules/user/user/user.service';
-import { UserModule } from './modules/user/user/user.module';
+import { UserModule } from './modules/user/user.module';
+import { MongooseModule } from "@nestjs/mongoose";
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
-  imports: [UserModule],
-  controllers: [UserController],
-  providers: [UserService],
+  imports: [
+    UserModule,
+    AuthModule,
+    MongooseModule.forRoot('mongodb://localhost/ecommerce', { useCreateIndex: true })],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule { }
