@@ -9,29 +9,7 @@ export class UserService {
     private readonly users: User[];
     constructor(
         @InjectModel('User') private readonly userModel: Model<IUser>
-    ) {
-    this.users = [
-        {
-            userId: 1,
-            email: 'john',
-            password: 'changeme',
-        },
-        {
-            userId: 2,
-            email: 'chris',
-            password: 'secret',
-        },
-        {
-            userId: 3,
-            email: 'maria',
-            password: 'guess',
-        },
-    ];
-    }
-
-    async findOne(email: string): Promise<User | undefined> {
-        return this.users.find(user => user.email === email);
-    }
+    ) { }
 
     async getAll(): Promise<IUser[]> {
         return await this.userModel.find();
