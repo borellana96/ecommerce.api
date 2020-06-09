@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { IUser } from '../../user/model/user.model';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { generateHashedPassword } from 'src/utilities/encryption';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -21,7 +22,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         if (!user) {
             throw new UnauthorizedException('The email does not exist');
         }
-        if (user.password !== password) {
+        if (generateHashedPassword(user.salt, password) !== user.hashedPassword) {
             throw new UnauthorizedException('Invalid password');
         }
         return user;

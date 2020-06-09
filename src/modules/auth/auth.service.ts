@@ -1,10 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { UserDto } from 'dist/modules/user/dto/user.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { IUser } from 'dist/modules/user/model/user.model';
+import { IUser } from '../user/model/user.model';
+import { UserDto } from '../user/dto/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -17,10 +17,10 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<any> {
     //const user = await this.userService.findOne(email);
     const user = await this.userService.findUserByEmail(email);
-    if (user && user.password === password) {
+    /*if (user && user.password === password) {
       const { password, ...result } = user;
       return result;
-    }
+    }*/
     return null;
   }
 
